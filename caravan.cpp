@@ -20,7 +20,7 @@ struct _node{
 };
 
 struct CaravanImplementation{
-  Node _head;
+  Node _head=0;
   int length;
 };
 
@@ -53,7 +53,21 @@ void add_pack_animal(Caravan caravan, PackAnimal animal)
 
 void remove_pack_animal(Caravan caravan, PackAnimal animal)
 {
+  if (caravan->_head==0) {
+    return;
+  }
+  Node deleted;
+  if (caravan->_head->packanimal==animal) {
+    deleted=caravan->_head;
+    caravan->_head=caravan->_head->next;
+    sfree(deleted);
+    return;
+  }
+  Node curr=caravan->_head;
 
+  while (curr->next!=0&&curr->next->packanimal!=animal) {
+    curr=curr->next;
+  }
 }
 
 int get_caravan_load(Caravan caravan)
